@@ -21,8 +21,9 @@ def api_all():
     conn = sqlite3.connect('books.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    cur.close()
     all_books = cur.execute('SELECT * FROM books;').fetchall()
+
+    cur.close()
 
     return jsonify(all_books)
 
@@ -63,7 +64,8 @@ def api_filter():
     cur = conn.cursor()
 
     results = cur.execute(query, to_filter).fetchall()
-
+    cur.close()
+    
     return jsonify(results)
 
 if __name__ == '__main__':
